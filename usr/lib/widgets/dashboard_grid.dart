@@ -40,14 +40,14 @@ class DashboardGrid extends StatelessWidget {
               );
             }
             final widget = provider.widgets[index];
-            return _buildWidgetTile(widget, provider);
+            return _buildWidgetTile(widget, provider, context);
           },
         );
       },
     );
   }
 
-  Widget _buildWidgetTile(DashboardWidget widget, DashboardProvider provider) {
+  Widget _buildWidgetTile(DashboardWidget widget, DashboardProvider provider, BuildContext context) {
     Widget content;
     switch (widget.type) {
       case WidgetType.chart:
@@ -73,7 +73,7 @@ class DashboardGrid extends StatelessWidget {
               Text(widget.title, style: const TextStyle(fontWeight: FontWeight.bold)),
               IconButton(
                 icon: const Icon(Icons.settings),
-                onPressed: () => _configureWidget(widget, provider),
+                onPressed: () => _configureWidget(widget, provider, context),
               ),
             ],
           ),
@@ -83,10 +83,10 @@ class DashboardGrid extends StatelessWidget {
     );
   }
 
-  void _configureWidget(DashboardWidget widget, DashboardProvider provider) {
+  void _configureWidget(DashboardWidget widget, DashboardProvider provider, BuildContext context) {
     // Simple configuration dialog - in real app, this would be more sophisticated
     showDialog(
-      context: provider.context,
+      context: context,
       builder: (context) => AlertDialog(
         title: Text('Configure ${widget.title}'),
         content: Text('Data Source: ${widget.dataSource}'),
